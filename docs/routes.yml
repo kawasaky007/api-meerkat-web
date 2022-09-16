@@ -1,0 +1,1018 @@
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - auth
+      summary: create account
+      operationId: signup
+      parameters: []
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signuprequest'
+            example:
+              name: grimmz
+              email: dqbaoptit@gmail.com
+              password: '123456'
+              phone: 0973286174
+              role: 'collab / staff'
+              code: 'CTV_PTS_1'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  success: true
+      deprecated: false
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: login
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login'
+            example:
+              email: root@root.example
+              password: '123456'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  access_token: token
+    deprecated: false
+  # /auth/reset-password:
+  #   get:
+  #     tags:
+  #       - auth
+  #     summary: reset-password
+  #     operationId: reset-password
+  #     parameters:
+  #       - name: email
+  #         in: query
+  #         required: true
+  #         schema:
+  #           type: string
+  #           example: dqbaoptit@gmail.com
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         content:
+  #           application/json; charset=utf-8:
+  #             schema:
+  #               example:
+  #                 success: true
+  #   deprecated: false
+
+  #   put:
+  #     tags:
+  #       - auth
+  #     summary: process-reset-password
+  #     operationId: process-reset-password
+  #     security:
+  #       - bearerAuth: []
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             required:
+  #               - new_password
+  #             properties:
+  #               new_password:
+  #                 type: string
+  #             example:
+  #               new_password: 'quocbao1'
+  #     responses:
+  #       '200':
+  #         description: OK
+  #         content:
+  #           application/json; charset=utf-8:
+  #             schema:
+  #               example:
+  #                 success: true
+  #     deprecated: false
+
+  /users/me:
+    get:
+      tags:
+        - users
+      summary: profile
+      operationId: profile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data:
+                    role: STUDENT,
+                    name: Grimmz
+                    email: dqbaoptit@gmail.com
+                    phone: 0973286174
+                    avatar: url
+                    speed: 69
+      deprecated: false
+
+    put:
+      tags:
+        - users
+      summary: update profile
+      operationId: update profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_profile'
+            example:
+              avatar: url
+              phone: 0973286174
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data:
+                    name: Grimmz
+                    role: STUDENT
+                    email: dqbaoptit@gmail.com
+                    phone: 0973286174
+                    avatar: url
+                    speed: 69
+      deprecated: false
+
+  /users/password:
+    put:
+      tags:
+        - users
+      summary: update password
+      operationId: update password
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - new_password
+                - password
+              properties:
+                new_password:
+                  type: string
+                password:
+                  type: string
+            example:
+              password: 'password'
+              new_password: '1234567890'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  success: true
+      deprecated: false
+
+  /products:
+    get:
+      tags:
+        - Danh mục sản phẩm
+      summary: get all products
+      operationId: getallproducts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  success: true
+      deprecated: false
+
+    post:
+      tags:
+        - Danh mục sản phẩm
+      summary: create products
+      operationId: make a product
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+            example:
+              name: 'Nhà phố'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  success: true
+      deprecated: false
+
+  /products/{_id}:
+    put:
+      tags:
+        - Danh mục sản phẩm
+      summary: Cập nhật
+      operationId: update product by id
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: _id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                items:
+                  type: string
+                name:
+                  type: string
+              example:
+                name: 'Cập nhật nhà phố'
+                items: 'array object, item là {image: url, price:Number}'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  success: true
+
+    delete:
+      tags:
+        - Danh mục sản phẩm
+      summary: Xoá danh mục
+      operationId: delete product
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: _id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  success: true
+
+  /projects:
+    get:
+      tags:
+        - Quản lý công trình
+      summary: Admin show tất cả công trình
+      operationId: get all projects by admin
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+            example: 'Mã công trình'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+    post:
+      tags:
+        - Quản lý công trình
+      summary: Admin tạo công trình
+      operationId: create project by admin
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                code:
+                  type: string
+                type:
+                  type: string
+                kind:
+                  type: string
+                require:
+                  type: string
+                price:
+                  type: number
+                customer:
+                  type: string
+                staffModel:
+                  type: string
+                staffRender:
+                  type: string
+                staffPTS:
+                  type: string
+                manager:
+                  type: string
+              example:
+                code: 'Mã công trình'
+                type: 'fix / new'
+                kind: 'town / garden / other'
+                require: 'onday / need / other'
+                price: 99000
+                customer: 'ObjectId khách hàng'
+                staffModel: 'ObjectId nhân viên'
+                staffRender: 'ObjectId nhân viên'
+                staffPTS: 'ObjectId nhân viên'
+                manager: 'ObjectId nhân viên'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  success: true
+
+  /projects/{projectId}:
+    get:
+      tags:
+        - Quản lý công trình
+      summary: Xem chi tiết công trình
+      operationId: get detail project
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+    post:
+      tags:
+        - Quản lý công trình
+      summary: Nhân viên cập nhật tiến độ
+      operationId: staffUpdateProcess
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                step:
+                  type: string
+                media:
+                  type: string
+              example:
+                step: 'model / render / pts / done'
+                media: 'Object : {step:"model / render / pts ", url:"link media"}'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  success: true
+
+    put:
+      tags:
+        - Quản lý công trình
+      summary: Manager cập nhật trạng thái
+      operationId: confirmCompleteOrStart
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                status:
+                  type: string
+              example:
+                status: 'start / done'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  success: true
+
+  /projects/{projectId}/note:
+    put:
+      tags:
+        - Quản lý công trình
+      summary: Cập nhật note
+      operationId: anyoneUpdateNote
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                note:
+                  type: string
+              example:
+                note: 'note cái giống gì cũng được'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+  /projects/personal:
+    get:
+      tags:
+        - Quản lý công trình
+      summary: Nhân viên get các công trình đang tham gia
+      operationId: staffGetOwnedProject
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+  /projects/tags/{projectId}:
+    post:
+      tags:
+        - Quản lý công trình
+      summary: tạo tag
+      operationId: projectTagAdd
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                description:
+                  type: string
+                color:
+                  type: string
+              example:
+                description: 'note cái giống gì cũng được'
+                color: hex color
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+    delete:
+      tags:
+        - Quản lý công trình
+      summary: xoá tag
+      operationId: projectTagDelete
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+        - name: tagId
+          in: query
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+  /staff:
+    get:
+      tags:
+        - Quản lý nhân viên
+      summary: Truy vấn tất cả nhân viên và cộng tác viên
+      operationId: getAllStaff
+      parameters:
+        - name: code
+          in: query
+          schema:
+            type: string
+            example: 'Mã nhân viên'
+        - name: type
+          in: query
+          schema:
+            type: string
+            example: 'model / render / pts / other'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+  /staff/{id}:
+    get:
+      tags:
+        - Quản lý nhân viên
+      summary: Thông tin chi tiết nhân viên, bao gồm đầu việc
+      operationId: getDetailStaff
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+    put:
+      tags:
+        - Quản lý nhân viên
+      summary: Cập nhật thông tin chi tiết nhân viên
+      operationId: updateStaffInfo
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                code:
+                  type: string
+                name:
+                  type: string
+              example:
+                code: 'CODE'
+                name: 'newName'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+  /staff/{id}/status:
+    post:
+      tags:
+        - Quản lý nhân viên
+      summary: Cập nhật trạng thái active tài khoản nhân viên
+      operationId: toggleStatusStaff
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+  /staff/suggest:
+    get:
+      tags:
+        - Quản lý nhân viên
+      summary: Chọn nhân viên tự động
+      operationId: suggestJobs
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+  /customers:
+    get:
+      tags:
+        - Quản lý khách hàng
+      summary: Truy vấn danh sách khách hàng
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+            example: 'Số điện thoại khách hàng'
+      operationId: getAllCustomer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+    post:
+      tags:
+        - Quản lý khách hàng
+      summary: Tạo 1 khách hàng
+      operationId: createAccountForCustomer
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                phone:
+                  type: string
+                type:
+                  type: string
+                name:
+                  type: string
+                address:
+                  type: string
+                paintBrand:
+                  type: string
+                invitedBy:
+                  type: string
+                point:
+                  type: number
+              example:
+                phone: 'sdt'
+                type: 'personal / business'
+                name: 'name'
+                address: 'Địa chỉ'
+                paintBrand: 'new name brand'
+                invitedBy: 'ObjectId của khách hàng mời'
+                point: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+  /customers/{id}:
+    get:
+      tags:
+        - Quản lý khách hàng
+      summary: Thông tin chi tiết khách hàng
+      operationId: getDetailCustomer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+    put:
+      tags:
+        - Quản lý khách hàng
+      summary: Cập nhật thông tin chi tiết khách hàng
+      operationId: updateCustomer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                type:
+                  type: string
+                name:
+                  type: string
+                address:
+                  type: string
+                paintBrand:
+                  type: string
+                invitedBy:
+                  type: string
+                point:
+                  type: number
+              example:
+                type: 'personal / business'
+                name: 'newName'
+                address: 'Địa chỉ'
+                paintBrand: 'new name brand'
+                invitedBy: 'ObjectId của khách hàng mời'
+                point: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+  /customers/many:
+    post:
+      tags:
+        - Quản lý khách hàng
+      summary: Tạo nhiều khách hàng 1 lần
+      operationId: createAccountCustomers
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                list:
+                  type: number
+              example:
+                list: 'array'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+  /payments:
+    get:
+      tags:
+        - Quản lý thanh toán
+      summary: Truy vấn công nợ theo khách hàng Id
+      operationId: AdminGetByCustomer
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            example: 'debt / done / yet'
+        - name: customerId
+          in: query
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+  /payments/{id}:
+    post:
+      tags:
+        - Quản lý thanh toán
+      summary: Cập nhật công nợ
+      operationId: paymentupdate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 'objectId'
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                status:
+                  type: string
+                debt:
+                  type: number
+                paid:
+                  type: number
+                process:
+                  type: string
+              example:
+                status: 'done / debt'
+                debt: 0
+                paid: 100000
+                process: 'accepted'
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+
+  /statistics:
+    get:
+      tags:
+        - Thống kê
+      summary: Thống kê tổng quan theo tháng
+      operationId: getOverviewStatistic
+      parameters:
+        - name: time
+          in: query
+          schema:
+            type: string
+            example: 'Truyền số getTime, mặc định tháng này'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                example:
+                  data: []
+components:
+  schemas:
+    update_profile:
+      title: update form
+      properties:
+        name:
+          type: string
+        avatar:
+          type: string
+        phone:
+          type: string
+
+    login:
+      title: Login
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    verify-code:
+      title: verify-code request
+      required:
+        - email
+        - code
+      properties:
+        email:
+          type: string
+        code:
+          type: string
+    signuprequest:
+      title: Signup request
+      required:
+        - name
+        - email
+        - phone
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        password:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
