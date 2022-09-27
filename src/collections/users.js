@@ -24,12 +24,7 @@ const Schema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  type: {
-    type: String,
-    require: true,
-    enum: ['model', 'render', 'pts', 'other'],
-    default: 'other',
-  },
+
   role: {
     type: String,
     enum: ['admin', 'staff', 'collab'],

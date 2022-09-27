@@ -9,8 +9,6 @@ const errorHandler = require('./middlewares/error-handler');
 const docsRouter = require('./routes/docs');
 const fileUploader = require('./cloudinary.config');
 const http = require('http');
-import { connect } from './modules/crm/tasks/connect';
-
 import { Router } from 'express';
 import * as database from './database/mongo';
 
@@ -45,7 +43,6 @@ const socketIo = require('socket.io')(httpServer, {
 });
 
 httpServer.listen(8080);
-connect(socketIo);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

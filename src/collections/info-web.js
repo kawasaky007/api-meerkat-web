@@ -29,6 +29,6 @@ const Schema = new mongoose.Schema({
   
 });
 Schema.plugin(mongoosePaginate);
-const InfoWeb = mongoose.model('info-web', Schema);
+const InfoWeb = mongoose.model('infoWeb', Schema);
 
 export default InfoWeb;

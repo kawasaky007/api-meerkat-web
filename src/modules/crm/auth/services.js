@@ -17,7 +17,6 @@ export const createUser = async ({
   password,
   role,
   code,
-  type,
 }) => {
   const userRecord = await User.findOne({ email }).lean().exec();
   if (userRecord) {
@@ -34,7 +33,6 @@ export const createUser = async ({
     password,
     role,
     code,
-    type,
   });
   return _.pick(newUser, [
     '_id',
