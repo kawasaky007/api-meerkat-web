@@ -1,32 +1,63 @@
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
-import { hash, compare } from 'bcrypt';
 
 const Schema = new mongoose.Schema({
- 
+
   name: {
     type: String,
-    require: true,
+    trim: true,
+    unique: [true,'Không thể trùng tên'],
+    required: "Không để trống name",
+    
+
   },
-  nameFull:{
+  email:{
     type:String,
-    require:true
+    trim:true,
+    unique: [true,'Không thể trùng email'],
+    required:"Không để trống email",
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Vui lòng nhập đúng định dạng email']
+  },
+  active: {
+    type: Boolean,
+    default: false
+  },
+  nameFull: {
+    type: String,
   },
 
   phone: {
     type: String,
-    require: true,
   },
   address: {
     type: String,
-    require: true,
   },
-  linkInstagram:{
-        link:'',
-        active:false
-  }
- 
-  
+  linkInstagram: {
+    link: '',
+    active: Boolean,
+    default: false
+
+  },
+  linkFB: {
+    link: '',
+    active: Boolean,
+    default: false
+
+  },
+  linkTikTok: {
+    link: '',
+    active: Boolean,
+    default: false
+
+  },
+  linkYoutube: {
+    link: '',
+    active: Boolean,
+    default: false
+
+  },
+
+
 });
 Schema.plugin(mongoosePaginate);
 const InfoWeb = mongoose.model('infoWeb', Schema);
