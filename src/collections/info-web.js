@@ -56,7 +56,18 @@ const Schema = new mongoose.Schema({
     default: false
 
   },
+  arrayService:[
+    {
+      name:String,
+      content:String,
+      image:String
+    }
+  ],
 
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
 
 });
 Schema.plugin(mongoosePaginate);

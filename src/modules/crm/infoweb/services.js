@@ -1,4 +1,5 @@
 import InfoWeb from '../../../collections/info-web'
+
 export const createInfo = async (payload) => {
 
   const data= await InfoWeb.create({ ...payload });
