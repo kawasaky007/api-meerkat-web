@@ -42,6 +42,7 @@ export const createUser = async ({
     'code',
     'role',
     'type',
+    'name'
   ]);
 };
 
@@ -52,5 +53,5 @@ export const signin = async ({ email, password }) => {
   const isValidPassword = await existedUser.comparePassword(password);
   if (!isValidPassword) throw new Error('Sai mật khẩu.');
 
-  return _.pick(existedUser, ['_id', 'role', 'code']);
+  return _.pick(existedUser, ['_id', 'role', 'email','name']);
 };
