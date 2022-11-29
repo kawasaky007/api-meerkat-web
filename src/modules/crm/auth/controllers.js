@@ -19,11 +19,12 @@ export const login = async (req, res) => {
     });
     return res
       .status(200)
-      .json({ success: true, access_token: token, info:{
+      .json({ success: true, data:{
         role: user.role,
         name:user.name,
+        access_token: token,
         email:user.email
-      } });
+      }  });
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }

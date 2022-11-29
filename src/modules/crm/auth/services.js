@@ -47,6 +47,9 @@ export const createUser = async ({
 };
 
 export const signin = async ({ email, password }) => {
+  if(!email||!password){
+    throw new Error('Email hoặc mật khẩu không được để trống');
+  }
   const existedUser = await User.findOne({ email });
   if (!existedUser) throw new Error('Email hoặc mật khẩu không hợp lệ.');
 
