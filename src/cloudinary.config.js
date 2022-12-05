@@ -3,9 +3,9 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
 
 cloudinary.config({
-  cloud_name: 'grimmz',
-  api_key: '947931341148448',
-  api_secret: 'Ats-j3CFoE-1FB8gB3XDVDsaB1o',
+  cloud_name: 'meerkat-team',
+  api_key: '472391169189496',
+  api_secret: 'BZrLCUdHUSx3DlA2T4SyI13qR2Y',
 });
 
 const storage = new CloudinaryStorage({

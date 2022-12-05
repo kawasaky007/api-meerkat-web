@@ -7,7 +7,7 @@ const Schema = new mongoose.Schema({
     type: String,
     trim: true,
     unique: [true,'Không thể trùng tên'],
-    required: "Không để trống name",
+    required: "Không để trống tên",
     
 
   },
