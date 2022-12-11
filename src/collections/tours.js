@@ -8,8 +8,8 @@ const Schema = new mongoose.Schema({
         trim: true,
         required: "Không để trống tên",
     },
-    slug:{
-        type:String,
+    slug: {
+        type: String,
     },
 
     thumbnail: {
@@ -41,14 +41,14 @@ const Schema = new mongoose.Schema({
     infoTour: {
         type: String,
         required: "Không để trống nội dung",
-        maxlength: [500, 'Nội dung không được lớn hơn 500 kí tự']
+        maxlength: [2500, 'Nội dung không được lớn hơn 500 kí tự']
 
 
     },
     infoTourShort: {
         type: String,
         required: "Không để trống nội dung",
-        maxlength: [200, 'Nội dung không được lớn hơn 200 kí tự']
+        maxlength: [500, 'Nội dung không được lớn hơn 200 kí tự']
 
     },
     createdAt: {
@@ -75,7 +75,21 @@ const Schema = new mongoose.Schema({
     newPrice: {
         type: Number,
         default: 0
-    }
+    },
+    tourSchedule: [
+        {
+            title: {
+                type: String
+            },
+            content: {
+                type: String
+            }
+        }
+    ],
+    typeTourismId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'type-tourism',
+    },
 
 })
 
