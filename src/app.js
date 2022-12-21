@@ -31,7 +31,7 @@ router.post('/upload', fileUploader.single('file'), (req, res, next) => {
     next(new Error('No file uploaded!'));
     return;
   }
-  res.json({ secure_url: req.file.path });
+  res.json({ secure_url: req.file.path, file_name: req.file.filename });
 });
 app.use(router);
 

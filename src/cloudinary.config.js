@@ -19,7 +19,20 @@ const storage = new CloudinaryStorage({
     cb(null, file.originalname);
   },
 });
-
+function getPosition(string, subString, index) {
+  return string.split(subString, index).join(subString).length;
+}
 const uploadCloud = multer({ storage });
+export const deleteImage = async (images) => {
+  let tmpString= images.slice(images.lastIndexOf("/v"))
+  let firstCut = getPosition(tmpString,'/',2);
+  let lastCut = tmpString.lastIndexOf(".");
+  let data = tmpString.slice(firstCut + 1, lastCut)
 
+  cloudinary.uploader.destroy(data,
+    function (error, result) {
+      // console.log('result', result)
+    }
+  )
+};
 module.exports = uploadCloud;

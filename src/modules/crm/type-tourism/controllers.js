@@ -1,6 +1,7 @@
 import TypeTourism from '../../../collections/type-tourism'
 const ErrorResponse = require('../../../utils/errorResponse')
 import config from '../../../app.config';
+import * as cloudinary from '../../../cloudinary.config';
 
 const asyncHandler = require('../../../middlewares/async')
 export const createTypeTourism = asyncHandler(async (req, res, next) => {
@@ -27,8 +28,10 @@ export const getAllTypeTourism = asyncHandler(async (req, res, next) => {
 
   data = await TypeTourism.paginate(
     { ...query },
-    { ...config.app.paginate_options,
-    ...req.query }
+    {
+      ...config.app.paginate_options,
+      ...req.query
+    }
   );
 
   res.status(200).json({
@@ -41,15 +44,20 @@ export const getDetailById = asyncHandler(async (req, res, next) => {
   if (!data) {
     return next(new ErrorResponse(`Không tìm thấy thông tin`, 404))
   }
-  data = await TypeTourism.findByIdAndUpdate(req.params.id, { ...req.body });
-
   res.status(200).json({
     success: true,
     data: data
   })
 })
 export const deleteItem = asyncHandler(async (req, res, next) => {
-  const item = await TypeTourism.findById(req.params.id);
+  // const item = await TypeTourism.findById(req.params.id);
+  let item = await TypeTourism.findById(req.params.id)
+  if (!item) {
+    return next(new ErrorResponse(`Không tìm thấy thông tin`, 404))
+  }
+
+  if (item.thumbnail.url)
+    await cloudinary.deleteImage(item.thumbnail.url)
   item.delete();
   res.status(200).json({
     success: true,
