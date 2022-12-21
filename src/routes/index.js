@@ -5,11 +5,12 @@ import InfoWeb from '../modules/crm/infoweb/routes';
 import auth from '../modules/crm/auth/routes';
 import typeTourism from '../modules/crm/type-tourism/routes'
 import tours from '../modules/crm/tours/routes'
+import slide from '../modules/crm/slide/routes'
 
 router.use('/info',InfoWeb)
 router.use('/auth', auth);
 router.use('/type-tourism',typeTourism)
 router.use('/tours',tours)
-
+router.use('/slide',slide)
 
 module.exports = router;

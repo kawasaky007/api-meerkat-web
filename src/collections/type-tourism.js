@@ -10,6 +10,7 @@ const Schema = new mongoose.Schema({
   },
   slug: {
     type: String,
+    unique:true
   }, 
   thumbnail: {
     url: {
