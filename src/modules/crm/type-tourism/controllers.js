@@ -27,7 +27,8 @@ export const getAllTypeTourism = asyncHandler(async (req, res, next) => {
 
   data = await TypeTourism.paginate(
     { ...query },
-    { ...config.app.paginate_options }
+    { ...config.app.paginate_options,
+    ...req.query }
   );
 
   res.status(200).json({

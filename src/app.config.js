@@ -10,7 +10,7 @@ export default {
     },
   },
   secret_key: process.env.SECRET_KEY,
-  time_life_token: '10d',
+  time_life_token: '1d',
   app: {
     role: ['STUDENT', 'ADMIN'],
     paginate_options: {

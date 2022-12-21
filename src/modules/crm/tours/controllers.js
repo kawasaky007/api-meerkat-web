@@ -29,6 +29,7 @@ export const getAll = asyncHandler(async (req, res, next) => {
   data = await Tours.paginate(
     { ...query },
     { ...config.app.paginate_options,
+      ...req.query
       }
   );
 
