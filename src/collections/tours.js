@@ -40,8 +40,8 @@ const Schema = new mongoose.Schema({
     },
     infoTour: {
         type: String,
-        required: "Không để trống nội dung",
-        maxlength: [2500, 'Nội dung không được lớn hơn 500 kí tự']
+        required: "Không để trống thông tin tour",
+        maxlength: [2500, 'Thông tin tour không được lớn hơn 500 kí tự']
 
 
     },
