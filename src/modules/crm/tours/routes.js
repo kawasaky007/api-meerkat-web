@@ -8,6 +8,6 @@ const router = Router();
 router.post('/', middlewares(['admin']), controller.createItem);
 router.get('/',controller.getAll)
 router.get('/:id', middlewares(['admin']), controller.getDetailById);
-router.put('/upload', middlewares(['admin']), controller.updateItem);
+router.put('/:id', middlewares(['admin']), controller.updateItem);
 router.delete('/:id',middlewares(['admin']),controller.deleteItem)
 export default router;

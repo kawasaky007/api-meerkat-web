@@ -59,9 +59,9 @@ export const updateItem = asyncHandler(async (req, res, next) => {
   })
 })
 export const deleteItem = asyncHandler(async (req, res, next) => {
+  const item = await Tours.findById(req.params.id);
   if (item.thumbnail.url)
     await cloudinary.deleteImage(item.thumbnail.url)
-  const item = await Tours.findById(req.params.id);
   item.delete();
   res.status(200).json({
     success: true,
