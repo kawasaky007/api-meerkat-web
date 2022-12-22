@@ -58,9 +58,9 @@ const Schema = new mongoose.Schema({
     reviews: {
         starRating: {
             type: Number,
-            min: [1, 'Rating must be at least 1'],
-            max: [5, 'Rating must can not be more than 5'],
-            default: 0
+            min: [1, 'Đánh giá phải lớn hơn 1'],
+            max: [5, 'Đánh giá phải nhỏ hơn 5'],
+            default: 1
         },
         countReviews: {
             type: Number,
