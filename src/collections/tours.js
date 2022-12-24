@@ -94,12 +94,14 @@ const Schema = new mongoose.Schema({
 })
 
 Schema.pre('save', function (next) {
+
     this.slug = slugify(this.name, {
         lower: true,
         locale: 'vi'
     });
     next();
 });
+
 Schema.plugin(mongoosePaginate);
 const Tours = mongoose.model('tours', Schema);
 export default Tours;
