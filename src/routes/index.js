@@ -13,7 +13,7 @@ router.use('/auth', auth);
 router.use('/type-tourism',typeTourism)
 router.use('/tours',tours)
 router.use('/slide',slide)
-router.use('/slide',prepare)
+router.use('/prepare',prepare)
 
 
 module.exports = router;
