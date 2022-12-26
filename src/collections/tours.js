@@ -86,6 +86,16 @@ const Schema = new mongoose.Schema({
             }
         }
     ],
+    listQuestions: [
+        {
+            title: {
+                type: String
+            },
+            content: {
+                type: String
+            }
+        }
+    ],
     typeTourismId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'type-tourism',
@@ -95,10 +105,17 @@ const Schema = new mongoose.Schema({
 
 Schema.pre('save', function (next) {
 
-    this.slug = slugify(this.name, {
+    const slugTmp = slugify(this.name, {
         lower: true,
         locale: 'vi'
     });
+    const checkSlug = Tours.findOne({ slug: slugTmp })
+    if (checkSlug) {
+        this.slug = slugTmp + '' + (new Date().getTime());
+    }
+    else {
+        this.slug = slugTmp;
+    }
     next();
 });
 

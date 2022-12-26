@@ -41,7 +41,7 @@ export const getDetailById = asyncHandler(async (req, res, next) => {
   })
 })
 export const getDetailBySlug = asyncHandler(async (req, res, next) => {
-  let data = await Tours.findOne({slug:req.params.slug})
+  let data = await Tours.findOne({ slug: req.params.slug })
   if (!data) {
     return next(new ErrorResponse(`Không tìm thấy thông tin`, 404))
   }
@@ -51,26 +51,32 @@ export const getDetailBySlug = asyncHandler(async (req, res, next) => {
     data: data
   })
 })
+
 export const updateItem = asyncHandler(async (req, res, next) => {
   let data = await Tours.findById(req.params.id)
-  let newData={...req.body};
-  newData.slug=slugify(newData.name, {
+  let newData = { ...req.body };
+  let slugTpm = slugify((newData.name), {
     lower: true,
     locale: 'vi'
-});
+  });
+  const checkSlug = await Tours.findOne({ slug: data.slug })
+  if (checkSlug.slug==slugTpm) {
+    // console.log(countSlug(checkSlug.slug, slugTpm));
+    newData.slug=slugTpm+'-'+(new Date().getTime())
+  }
   if (!data) {
     return next(new ErrorResponse(`Không tìm thấy thông tin`, 404))
   }
   data = await Tours.findByIdAndUpdate(req.params.id, { ...newData });
-  if (data.thumbnail.url) {
-    if (data.thumbnail.url !== req.body.thumbnail.url) {
-      await cloudinary.deleteImage(data.thumbnail.url)
+  // if (data.thumbnail.url) {
+  //   if (data.thumbnail.url !== req.body.thumbnail.url) {
+  //     await cloudinary.deleteImage(data.thumbnail.url)
 
-    }
-  }
+  //   }
+  // }
   res.status(200).json({
     success: true,
-    data: data
+    data: newData
   })
 })
 export const deleteItem = asyncHandler(async (req, res, next) => {
