@@ -12,8 +12,8 @@ router.use('/info',InfoWeb)
 router.use('/auth', auth);
 router.use('/type-tourism',typeTourism)
 router.use('/tours',tours)
-router.use('/slide',slide)
-router.use('/prepare',prepare)
+router.use('/slides',slide)
+router.use('/prepares',prepare)
 
 
 module.exports = router;
