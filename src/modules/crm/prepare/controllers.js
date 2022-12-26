@@ -1,4 +1,4 @@
-import Prepare from '../../../collections/slide'
+import Prepare from '../../../collections/prepare'
 const ErrorResponse = require('../../../utils/errorResponse')
 import config from '../../../app.config';
 import * as cloudinary from '../../../cloudinary.config';
