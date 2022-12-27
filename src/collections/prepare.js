@@ -7,6 +7,13 @@ name:{
     type: String, 
     required: "Không để trống tên",
 },
+description:{
+    type: String,
+    required: "Không để trống mô tả",
+    maxlength: [300, 'Nội dung không được lớn hơn 300 kí tự']
+
+},
+
   thumbnail: {
     url: {
       type: String,
