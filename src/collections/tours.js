@@ -100,6 +100,10 @@ const Schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'type-tourism',
     },
+    prepareId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'prepare',
+    },
 
 })
 
