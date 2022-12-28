@@ -8,6 +8,17 @@ cloudinary.config({
   api_secret: 'BZrLCUdHUSx3DlA2T4SyI13qR2Y',
 });
 
+const storage1 = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'ANH TEST',
+    allowedFormats: ['jpg', 'png'],
+
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
@@ -18,11 +29,14 @@ const storage = new CloudinaryStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
-});
-function getPosition(string, subString, index) {
+});function getPosition(string, subString, index) {
   return string.split(subString, index).join(subString).length;
 }
-const uploadCloud = multer({ storage });
+export const uploadCloud = multer({ storage:storage });
+
+export const uploadTmp = multer({ storage:storage1 });
+
+
 export const deleteImage = async (images) => {
   let tmpString= images.slice(images.lastIndexOf("/v"))
   let firstCut = getPosition(tmpString,'/',2);
@@ -35,4 +49,4 @@ export const deleteImage = async (images) => {
     }
   )
 };
-module.exports = uploadCloud;
+

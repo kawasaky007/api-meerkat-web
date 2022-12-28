@@ -89,10 +89,12 @@ const Schema = new mongoose.Schema({
     listQuestions: [
         {
             title: {
-                type: String
+                type: String,
+
             },
             content: {
-                type: String
+                type: String,
+
             }
         }
     ],
@@ -100,10 +102,18 @@ const Schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'type-tourism',
     },
-    prepareId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'prepare',
-    },
+    selectedPreparesTeam: [
+        {
+            type: Object,
+            ref: 'prepare',
+        },
+    ],
+    yourSelectedPrepares: [
+        {
+            type: Object,
+            ref: 'prepare',
+        },
+    ]
 
 })
 

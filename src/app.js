@@ -7,10 +7,10 @@ const indexRouter = require('./routes/index');
 const cors = require('cors');
 const errorHandler = require('./middlewares/error');
 const docsRouter = require('./routes/docs');
-const fileUploader = require('./cloudinary.config');
 const http = require('http');
 import { Router } from 'express';
 import * as database from './database/mongo';
+import * as cloudinary from './cloudinary.config';
 
 const app = express();
 database.connection();
@@ -26,7 +26,14 @@ app.use('/api/v1', indexRouter);
 app.use('/docs/v1', docsRouter.default);
 
 const router = Router();
-router.post('/upload', fileUploader.single('file'), (req, res, next) => {
+router.post('/upload', cloudinary.uploadCloud.single('file'), (req, res, next) => {
+  if (!req.file) {
+    next(new Error('No file uploaded!'));
+    return;
+  }
+  res.json({ secure_url: req.file.path, file_name: req.file.filename });
+});
+router.post('/upload/tmp', cloudinary.uploadTmp.single('file'), (req, res, next) => {
   if (!req.file) {
     next(new Error('No file uploaded!'));
     return;
