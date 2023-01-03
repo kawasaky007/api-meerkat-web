@@ -78,6 +78,9 @@ const Schema = new mongoose.Schema({
     },
     tourSchedule: [
         {
+            titleShort: {
+                type: String
+            },
             title: {
                 type: String
             },

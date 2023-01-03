@@ -45,7 +45,6 @@ export const getDetailBySlug = asyncHandler(async (req, res, next) => {
   if (!data) {
     return next(new ErrorResponse(`Không tìm thấy thông tin`, 404))
   }
-
   res.status(200).json({
     success: true,
     data: data
