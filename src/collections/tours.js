@@ -116,6 +116,13 @@ const Schema = new mongoose.Schema({
             type: Object,
             ref: 'prepare',
         },
+    ],
+    listImage: [
+        {
+            url: {
+                type: String,
+            }
+        }
     ]
 
 })
