@@ -28,6 +28,8 @@ const Schema = new mongoose.Schema({
 
   phone: {
     type: String,
+    match: [/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/, 'Vui lòng nhập đúng định dạng Số điện thoại']
+
   },
   address: {
     type: String,

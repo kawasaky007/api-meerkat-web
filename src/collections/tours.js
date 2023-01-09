@@ -135,7 +135,7 @@ Schema.pre('save', function (next) {
     });
     const checkSlug = Tours.findOne({ slug: slugTmp })
     if (checkSlug) {
-        this.slug = slugTmp + '' + (new Date().getTime());
+        this.slug = slugTmp + '' + (this._id.valueOf());
     }
     else {
         this.slug = slugTmp;

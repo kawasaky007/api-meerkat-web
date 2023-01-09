@@ -53,6 +53,7 @@ export const getDetailBySlug = asyncHandler(async (req, res, next) => {
 
 export const updateItem = asyncHandler(async (req, res, next) => {
   let data = await Tours.findById(req.params.id)
+
   let newData = { ...req.body };
   let slugTpm = slugify((newData.name), {
     lower: true,
@@ -60,8 +61,7 @@ export const updateItem = asyncHandler(async (req, res, next) => {
   });
   const checkSlug = await Tours.findOne({ slug: data.slug })
   if (checkSlug.slug==slugTpm) {
-    // console.log(countSlug(checkSlug.slug, slugTpm));
-    newData.slug=slugTpm+'-'+(new Date().getTime())
+    newData.slug=slugTpm+'-'+(newData._id.valueOf())
   }
   if (!data) {
     return next(new ErrorResponse(`Không tìm thấy thông tin`, 404))
