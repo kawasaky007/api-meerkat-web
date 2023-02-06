@@ -67,3 +67,13 @@ export const deleteItem = asyncHandler(async (req, res, next) => {
     success: true,
   })
 })
+export const getDetailBySlug = asyncHandler(async (req, res, next) => {
+  let data = await TypeTourism.findOne({ slug: req.params.slug })
+  if (!data) {
+    return next(new ErrorResponse(`Không tìm thấy thông tin`, 404))
+  }
+  res.status(200).json({
+    success: true,
+    data: data
+  })
+})

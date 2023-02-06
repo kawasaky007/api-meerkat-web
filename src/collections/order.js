@@ -33,7 +33,12 @@ const Schema = new mongoose.Schema({
         require: true,
         default: 0,
         required:"Không để trống số vé",
-      }
+      },
+      tourId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'tours',
+        require: true,
+    },
 
 })
 

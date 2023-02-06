@@ -1,4 +1,6 @@
 import Orders from '../../../collections/order'
+import Tours from '../../../collections/tours'
+
 const ErrorResponse = require('../../../utils/errorResponse')
 import config from '../../../app.config';
 import * as cloudinary from '../../../cloudinary.config';
@@ -30,9 +32,16 @@ export const getAll = asyncHandler(async (req, res, next) => {
     { ...query },
     {
       ...config.app.paginate_options,
-      ...req.query
-    }
-  );
+      ...req.query,
+      populate: {
+        path: 'tourId',
+        select: ['name'],
+
+      }
+     
+    },
+  )
+
 
   res.status(200).json({
     success: true,
@@ -55,9 +64,6 @@ export const deleteItem = asyncHandler(async (req, res, next) => {
   if (!item) {
     return next(new ErrorResponse(`Không tìm thấy thông tin`, 404))
   }
-
-  if (item.thumbnail.url)
-    await cloudinary.deleteImage(item.thumbnail.url)
   item.delete();
   res.status(200).json({
     success: true,
