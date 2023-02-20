@@ -8,6 +8,7 @@ const cors = require('cors');
 const errorHandler = require('./middlewares/error');
 const docsRouter = require('./routes/docs');
 const http = require('http');
+const axios = require('axios');
 import { Router } from 'express';
 import * as database from './database/mongo';
 import * as cloudinary from './cloudinary.config';
@@ -39,6 +40,20 @@ router.post('/upload/tmp', cloudinary.uploadTmp.single('file'), (req, res, next)
     return;
   }
   res.json({ secure_url: req.file.path, file_name: req.file.filename });
+});
+router.post('/recaptcha/api/siteverify', (req, res) => {
+  axios.post('https://www.google.com/recaptcha/api/siteverify',null, {
+    params:{
+    secret: req.body.secret,
+    response: req.body.response
+    }
+  })
+  .then(result => {
+    res.json(result.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
 });
 app.use(router);
 
