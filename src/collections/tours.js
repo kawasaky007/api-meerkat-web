@@ -8,6 +8,10 @@ const Schema = new mongoose.Schema({
         trim: true,
         required: "Không để trống tên",
     },
+    isOutstanding:{
+        type:Boolean,
+        default:false
+    },
     slug: {
         type: String,
     },

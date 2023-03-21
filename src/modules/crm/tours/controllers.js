@@ -14,8 +14,10 @@ export const createItem = asyncHandler(async (req, res, next) => {
 export const getAll = asyncHandler(async (req, res, next) => {
   let data = {};
   let query = {};
+  console.log(req.query);
   if (req.query.search) query['name'] = { $regex: req.query.search, $options: 'i' };
   if (req.query.typeTourismId) query['typeTourismId'] = req.query.typeTourismId;
+  if (req.query.isOutstanding) query['isOutstanding'] = req.query.isOutstanding;
 
   data = await Tours.paginate(
     { ...query },
@@ -55,10 +57,13 @@ export const updateItem = asyncHandler(async (req, res, next) => {
   let data = await Tours.findById(req.params.id)
 
   let newData = { ...req.body };
-  let slugTpm = slugify((newData.name), {
-    lower: true,
-    locale: 'vi'
-  });
+  let slugTpm  
+  if(newData.name){
+    slugTpm= slugify((newData.name), {
+      lower: true,
+      locale: 'vi'
+    });
+  }
   const checkSlug = await Tours.findOne({ slug: data.slug })
   if (checkSlug.slug==slugTpm) {
     newData.slug=slugTpm+'-'+(newData._id.valueOf())

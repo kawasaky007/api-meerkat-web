@@ -27,6 +27,7 @@ export const getAll = asyncHandler(async (req, res, next) => {
   let data = {};
   let query = {};
   if (req.query.search) query['name'] = { $regex: req.query.search, $options: 'i' };
+  if (req.query.tourId) query['tourId'] = req.query.tourId;
 
   data = await Orders.paginate(
     { ...query },
